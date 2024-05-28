@@ -1,6 +1,5 @@
-'use client';
 import { ThemeProvider } from '@mui/material/styles';
-import theme from '../config/theme';
+import theme from "@/config/theme";
 
 export function StyledRoot({children,}: Readonly<{ children: React.ReactNode; }>) {
     return (
