@@ -18,11 +18,6 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en">
-    <head>
-      <link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/v/dt/dt-1.11.5/datatables.min.css"/>
-      <script type="text/javascript" src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
-      <script type="text/javascript" src="https://cdn.datatables.net/1.11.5/js/jquery.dataTables.min.js"></script>
-    </head>
     <UserProvider>
       <body className={`${IbmPlexMono.className}`}>
       <AppRouterCacheProvider options={{key: 'css'}}>

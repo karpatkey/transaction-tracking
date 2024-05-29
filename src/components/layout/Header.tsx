@@ -1,11 +1,10 @@
 import React from 'react'
 import { useUser } from '@auth0/nextjs-auth0/client'
-import {Avatar, Box, Button} from '@mui/material'
+import {Avatar, Button} from '@mui/material'
 import { useRouter } from 'next/navigation'
 import BoxWrapperRow from "@/components/wrappers/BoxWrapperRow";
 import CustomTypography from "@/components/CustomTypography";
 import LogoKarpatkey from "@/components/LogoKarpatkey";
-import {Theme} from "@mui/system";
 
 export const HEADER_HEIGHT = 100
 
