@@ -13,6 +13,7 @@ const LayoutWrapper = styled(Box)(() => ({
   display: 'grid',
   gap: '0px 0px',
   minHeight: '100vh',
+  backgroundColor: '#eeeded',
   gridTemplateRows: `${HEADER_HEIGHT}px auto ${FOOTER_HEIGHT}px`,
   gridTemplateColumns: `auto`,
   gridTemplateAreas: `"header"
@@ -22,7 +23,7 @@ const LayoutWrapper = styled(Box)(() => ({
 
 const Layout = ({ children }: LayoutProps): React.ReactNode => {
   return (
-    <LayoutWrapper>
+    <LayoutWrapper sx={{paddingLeft: '48px', paddingRight: '48px'}}>
       <Box
         sx={{
           gridArea: 'header',
@@ -38,7 +39,8 @@ const Layout = ({ children }: LayoutProps): React.ReactNode => {
           gridArea: 'body',
           width: '100%',
           minHeight: '100%',
-          overflowY: 'auto'
+          overflowY: 'auto',
+            backgroundColor: '#eeeded',
         }}
       >
         {children}

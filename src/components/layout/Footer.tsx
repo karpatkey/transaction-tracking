@@ -15,8 +15,6 @@ export const FOOTER_HEIGHT = 100
 const FooterWrapper = styled(BoxWrapperColumn)(({ theme }: any) => ({
     backgroundColor: theme.palette.background.default,
     height: FOOTER_HEIGHT,
-    paddingRight: '48px',
-    paddingLeft: '48px',
     paddingTop: '24px',
     paddingBottom: '24px',
     justifyContent: 'center',

@@ -53,7 +53,6 @@ let theme = createTheme({
         h1: {
             fontFamily: 'IBM Plex Mono',
             fontSize: 60,
-            lineHeight: 70,
             fontWeight: 400,
             fontStyle: 'normal',
             color: '#1A1A1A',
@@ -61,7 +60,6 @@ let theme = createTheme({
         h2: {
             fontFamily: 'IBM Plex Mono',
             fontSize: 48,
-            lineHeight: 56,
             fontWeight: 400,
             fontStyle: 'normal',
             color: '#1A1A1A',
@@ -69,7 +67,6 @@ let theme = createTheme({
         h3: {
             fontFamily: 'IBM Plex Mono',
             fontSize: 24,
-            lineHeight: 28,
             fontWeight: 300,
             fontStyle: 'normal',
             color: '#1A1A1A',
@@ -77,7 +74,6 @@ let theme = createTheme({
         h4: {
             fontFamily: 'IBM Plex Mono',
             fontSize: 18,
-            lineHeight: 22,
             fontWeight: 400,
             fontStyle: 'normal',
             color: '#1A1A1A',
@@ -85,7 +81,6 @@ let theme = createTheme({
         body1: {
             fontFamily: 'IBM Plex Mono',
             fontSize: 18,
-            lineHeight: 22,
             fontWeight: 400,
             fontStyle: 'normal',
             color: '#1A1A1A'
@@ -93,7 +88,6 @@ let theme = createTheme({
         body2: {
             fontFamily: 'IBM Plex Mono',
             fontSize: 16,
-            lineHeight: 19,
             fontWeight: 400,
             fontStyle: 'normal',
             color: '#1A1A1A'
@@ -101,7 +95,6 @@ let theme = createTheme({
         subtitle1: {
             fontFamily: 'IBM Plex Mono',
             fontSize: 14,
-            lineHeight: 16,
             fontWeight: 400,
             fontStyle: 'normal',
             color: '#1A1A1A'
@@ -109,7 +102,6 @@ let theme = createTheme({
         subtitle2: {
             fontFamily: 'IBM Plex Mono',
             fontSize: 12,
-            lineHeight: 14,
             fontWeight: 400,
             fontStyle: 'normal',
             color: '#1A1A1A'
@@ -118,8 +110,7 @@ let theme = createTheme({
             fontFamily: 'IBM Plex Mono',
             fontStyle: 'normal',
             fontWeight: 700,
-            fontSize: 16,
-            lineHeight: 18 / 20
+            fontSize: 16
         },
     },
     components: {
