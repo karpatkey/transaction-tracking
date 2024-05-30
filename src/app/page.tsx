@@ -4,12 +4,14 @@ import BoxContainerWrapper from "@/components/wrappers/BoxContainerWrapper";
 import {Theme} from "@mui/system";
 import { useUser } from '@auth0/nextjs-auth0/client'
 import { useRouter } from 'next/navigation'
+import Loading from "@/components/Loading";
 
 export default function Home() {
-    const {user, error} = useUser()
+    const {user, isLoading, error} = useUser()
     const {push} = useRouter()
 
     if (error) push('/500')
+    if (isLoading) return <Loading/>;
 
     if (!user) {
         return (

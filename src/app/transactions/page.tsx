@@ -12,25 +12,23 @@ interface PageProps {
 }
 
 const Page = (props: PageProps) => {
-    const { user, error, isLoading } = useUser();
+    const {user, error, isLoading} = useUser();
     const {push} = useRouter()
 
     if (isLoading) return <Loading/>;
     if (error) push('/500')
-    if(!user) push('/')
+    if (!user) push('/')
 
     return (
-        user && (
-            <BoxWrapperColumn gap={1}>
-                <CustomTypography variant={'h5'}>Treasury transactions</CustomTypography>
-                <Box sx={{
-                    color: 'custom.black.primary',
-                    backgroundColor: 'background.paper',
-                }}>
-                    <DataTable />
-                </Box>
-            </BoxWrapperColumn>
-        )
+        <BoxWrapperColumn gap={1}>
+            <CustomTypography variant={'h5'}>Treasury transactions</CustomTypography>
+            <Box sx={{
+                color: 'custom.black.primary',
+                backgroundColor: 'background.paper',
+            }}>
+                <DataTable/>
+            </Box>
+        </BoxWrapperColumn>
     )
 }
 
