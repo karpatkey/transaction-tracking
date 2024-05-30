@@ -1,6 +1,7 @@
 "use client";
 import React from 'react';
 import {DataGrid, GridColDef, GridRowsProp} from '@mui/x-data-grid';
+import {Box} from "@mui/material";
 
 
 const columns: GridColDef[] = [
@@ -396,9 +397,7 @@ const rows: GridRowsProp = [
 
 const DataTable = () => {
     return (
-        <div style={{height: '90%', width: '100%'}}>
-            <DataGrid rows={rows} columns={columns}/>
-        </div>
+        <DataGrid rows={rows} columns={columns}/>
     )
 }
 

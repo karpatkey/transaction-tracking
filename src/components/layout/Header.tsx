@@ -1,12 +1,10 @@
 import React from 'react'
-import { useUser } from '@auth0/nextjs-auth0/client'
-import {Avatar, Button} from '@mui/material'
-import { useRouter } from 'next/navigation'
+import {useUser} from '@auth0/nextjs-auth0/client'
+import {AppBar, Avatar, Box, Button, Divider, Toolbar} from '@mui/material'
+import {useRouter} from 'next/navigation'
 import BoxWrapperRow from "@/components/wrappers/BoxWrapperRow";
 import CustomTypography from "@/components/CustomTypography";
 import LogoKarpatkey from "@/components/LogoKarpatkey";
-
-export const HEADER_HEIGHT = 100
 
 interface NotLoggedProps {
     onLogin: any
@@ -14,7 +12,7 @@ interface NotLoggedProps {
 
 const NotLogged = ({onLogin}: NotLoggedProps) => {
     return (
-        <Button onClick={onLogin} sx={{ gap: 2, height: '48px', padding: '6px 14px' }}>
+        <Button onClick={onLogin} sx={{gap: 2, height: '48px', padding: '6px 14px'}}>
             Login
         </Button>
     )
@@ -27,12 +25,12 @@ interface LoggedProps {
 }
 
 const Logged = (props: LoggedProps) => {
-    const { name, image, onLogout } = props
+    const {name, image, onLogout} = props
 
     return (
-        <BoxWrapperRow sx={{ height: 'inherit'}}>
-            <BoxWrapperRow  sx={{ height: 'inherit'}}>
-                <Avatar alt={name} src={image} />
+        <BoxWrapperRow sx={{height: 'inherit'}}>
+            <BoxWrapperRow sx={{height: 'inherit'}}>
+                <Avatar alt={name} src={image}/>
                 <CustomTypography sx={{
                     padding: '6px 14px',
                     alignItems: 'center',
@@ -43,7 +41,7 @@ const Logged = (props: LoggedProps) => {
                     {name?.trim()}
                 </CustomTypography>
             </BoxWrapperRow>
-            <Button onClick={onLogout} sx={{ gap: 2, height: '48px', padding: '6px 14px' }}>
+            <Button onClick={onLogout} sx={{gap: 2, height: '48px', padding: '6px 14px'}}>
                 Logout
             </Button>
         </BoxWrapperRow>
@@ -51,7 +49,7 @@ const Logged = (props: LoggedProps) => {
 }
 
 const Header = () => {
-    const { user, isLoading } = useUser()
+    const {user, isLoading} = useUser()
     const router = useRouter()
 
     const name = user?.name ?? ''
@@ -72,24 +70,25 @@ const Header = () => {
     }
 
     return (
-        <BoxWrapperRow
-            sx={{
+            <AppBar position="fixed" sx={{
                 backgroundColor: 'background.default',
-                justifyContent: 'space-between',
-                height: HEADER_HEIGHT
-            }}
-        >
-            <LogoKarpatkey />
-            <BoxWrapperRow sx={{height: '100%'}}>
-                {!isLoading ? (
-                    !user ? (
-                        <NotLogged onLogin={onLogin}/>
-                    ) : (
-                        <Logged {...loggedComponentProps} />
-                    )
-                ) : null}
-            </BoxWrapperRow>
-        </BoxWrapperRow>
+                zIndex: (theme) => theme.zIndex.drawer + 1,
+                boxShadow: 'none'
+            }}>
+                <Toolbar sx={{display: 'flex', justifyContent: 'space-between'}}>
+                    <LogoKarpatkey/>
+                    <BoxWrapperRow sx={{height: '100%'}}>
+                        {!isLoading ? (
+                            !user ? (
+                                <NotLogged onLogin={onLogin}/>
+                            ) : (
+                                <Logged {...loggedComponentProps} />
+                            )
+                        ) : null}
+                    </BoxWrapperRow>
+                </Toolbar>
+                <Divider sx={{ position: 'fixed', width: '100%', top: '64px', left: 0 }} />
+            </AppBar>
     )
 }
 

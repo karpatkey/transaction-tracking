@@ -14,10 +14,11 @@ export default function Home() {
     if (!user) {
         return (
             <BoxContainerWrapper
-                sx={{height: '100%', backgroundColor: (theme: Theme) => theme.palette.background.default}}>
+                sx={{ backgroundColor: (theme: Theme) => theme.palette.background.default}}>
                 <CustomTypography
                     variant="h3"
                     sx={{
+                        height: `calc(100vh - 194px)`,
                         display: 'flex',
                         justifyContent: 'center',
                         alignItems: 'center'

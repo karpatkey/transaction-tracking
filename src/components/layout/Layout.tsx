@@ -1,55 +1,68 @@
 "use client";
 import React from 'react'
-import { styled } from '@mui/material/styles'
-import { Box } from '@mui/material'
-import Header, {HEADER_HEIGHT} from "@/components/layout/Header";
-import Footer, {FOOTER_HEIGHT} from "@/components/layout/Footer";
+import {Box, Container, CssBaseline, Divider, Toolbar} from '@mui/material'
+import Header from "@/components/layout/Header";
+import Sidebar, {DRAWER_WIDTH} from "@/components/layout/Sidebar";
+import Footer from "@/components/layout/Footer";
+import BoxWrapperColumn from "@/components/wrappers/BoxWrapperColumn";
+import {useUser} from "@auth0/nextjs-auth0/client";
 
 interface LayoutProps {
   children: React.ReactNode;
 }
 
-const LayoutWrapper = styled(Box)(() => ({
-  display: 'grid',
-  gap: '0px 0px',
-  minHeight: '100vh',
-  backgroundColor: '#eeeded',
-  gridTemplateRows: `${HEADER_HEIGHT}px auto ${FOOTER_HEIGHT}px`,
-  gridTemplateColumns: `auto`,
-  gridTemplateAreas: `"header"
-                      "body"
-                      "footer"`
-}))
+const ConnectedUserLayout = ({children}: LayoutProps): React.ReactNode => {
+    return (
+        <Box sx={{ display: 'flex', minHeight: '100vh', flexDirection: 'column', backgroundColor: 'background.default' }}>
+            <CssBaseline />
+            <Header/>
+            <Sidebar />
+            <Box component="main" sx={{
+                flexGrow: 1,
+                display: 'flex',
+                flexDirection: 'column',
+                ml: `${DRAWER_WIDTH}px`,
+                mt: '64px',
+                backgroundColor: 'background.default'
+            }}>
+                <Box sx={{ flexGrow: 1, pr: '32px', pl: '32px', pt: '32px', pb: '32px' }}>
+                    {children}
+                </Box>
+            </Box>
+            <Footer />
+        </Box>
+    )
+}
+
+const DisconnectedUserLayout = ({children}: LayoutProps): React.ReactNode => {
+    return (
+        <Box sx={{ display: 'flex', minHeight: '100vh', flexDirection: 'column', backgroundColor: 'background.default' }}>
+            <CssBaseline />
+            <Header/>
+            <Box component="main" sx={{
+                flexGrow: 1,
+                display: 'flex',
+                flexDirection: 'column',
+                mt: '64px',
+                backgroundColor: 'background.default'
+            }}>
+                <Box sx={{ flexGrow: 1, pr: '32px', pl: '32px', pt: '32px', pb: '32px' }}>
+                    {children}
+                </Box>
+            </Box>
+            <Footer />
+        </Box>
+    )
+}
 
 const Layout = ({ children }: LayoutProps): React.ReactNode => {
-  return (
-    <LayoutWrapper sx={{paddingLeft: '48px', paddingRight: '48px'}}>
-      <Box
-        sx={{
-          gridArea: 'header',
-          width: '100%',
-          borderBottom: '1px solid rgba(0, 0, 0, 0.12)',
-          minHeight: HEADER_HEIGHT
-        }}
-      >
-        <Header />
-      </Box>
-      <Box
-        sx={{
-          gridArea: 'body',
-          width: '100%',
-          minHeight: '100%',
-          overflowY: 'auto',
-            backgroundColor: '#eeeded',
-        }}
-      >
-        {children}
-      </Box>
-      <Box sx={{ gridArea: 'footer', width: '100%' }}>
-        <Footer />
-      </Box>
-    </LayoutWrapper>
-  )
+    const {user} = useUser()
+
+    if(user) {
+        return <ConnectedUserLayout>{children}</ConnectedUserLayout>
+    } else {
+        return <DisconnectedUserLayout>{children}</DisconnectedUserLayout>
+    }
 }
 
 export default Layout
