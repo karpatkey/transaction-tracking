@@ -1,4 +1,3 @@
-"use client";
 import { Box, BoxProps, styled } from '@mui/material'
 import { FC } from 'react'
 

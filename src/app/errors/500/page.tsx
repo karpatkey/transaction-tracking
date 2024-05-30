@@ -1,4 +1,3 @@
-"use client";
 import BoxContainerWrapper from "@/components/wrappers/BoxContainerWrapper";
 import {Theme} from "@mui/system";
 import CustomTypography from "@/components/CustomTypography";
@@ -6,7 +5,7 @@ import CustomTypography from "@/components/CustomTypography";
 export default function Page() {
     return (
         <BoxContainerWrapper
-            sx={{height: '100%', backgroundColor: (theme: Theme) => theme.palette.background.default}}>
+            sx={{height: '100%', backgroundColor: 'background.default'}}>
             <CustomTypography
                 variant="h3"
                 sx={{

@@ -1,22 +1,19 @@
-"use client";
 import CustomTypography from "@/components/CustomTypography";
 import BoxContainerWrapper from "@/components/wrappers/BoxContainerWrapper";
-import {Theme} from "@mui/system";
-import { useUser } from '@auth0/nextjs-auth0/client'
-import { useRouter } from 'next/navigation'
-import Loading from "@/components/Loading";
+import {redirect} from 'next/navigation'
+import {getSession} from "@auth0/nextjs-auth0";
 
-export default function Home() {
-    const {user, isLoading, error} = useUser()
-    const {push} = useRouter()
+export default async function Home()  {
+    const session = await getSession()
+    const user = session?.user
+    const error = session?.error
 
-    if (error) push('/500')
-    if (isLoading) return <Loading/>;
+    if (error) redirect('/500')
 
     if (!user) {
         return (
             <BoxContainerWrapper
-                sx={{ backgroundColor: (theme: Theme) => theme.palette.background.default}}>
+                sx={{ backgroundColor: 'background.default'}}>
                 <CustomTypography
                     variant="h3"
                     sx={{
@@ -31,6 +28,5 @@ export default function Home() {
             </BoxContainerWrapper>
         )
     }
-    push('/transactions')
-    return <></>
+    redirect('/transactions')
 }

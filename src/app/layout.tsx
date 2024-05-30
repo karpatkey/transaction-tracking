@@ -2,14 +2,13 @@ import { AppRouterCacheProvider } from '@mui/material-nextjs/v13-appRouter';
 import type { Metadata } from "next";
 import "./globals.css";
 import { StyledRoot } from './StyledRoot';
-import {UserProvider, useUser} from '@auth0/nextjs-auth0/client';
+import {UserProvider} from '@auth0/nextjs-auth0/client';
 import LayoutTheme from '@/components/layout/Layout';
 import {IbmPlexMono} from "@/app/ui/fonts";
-import {useRouter} from "next/navigation";
 
 export const metadata: Metadata = {
-  title: "Treasury transactions",
-  description: "List of treasury transactions",
+  title: "Transactions",
+  description: "List of transactions",
 };
 
 export default function RootLayout({

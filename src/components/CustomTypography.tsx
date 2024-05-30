@@ -1,4 +1,3 @@
-"use client";
 import { styled } from '@mui/material'
 import { TypographyProps } from '@mui/material'
 import Typography from '@mui/material/Typography'

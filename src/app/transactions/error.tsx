@@ -1,5 +1,3 @@
-'use client'
-
 import CustomTypography from "@/components/CustomTypography";
 import {Theme} from "@mui/system";
 import BoxContainerWrapper from "@/components/wrappers/BoxContainerWrapper";

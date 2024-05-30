@@ -1,35 +1,28 @@
-'use client';
 import DataTable from "@/components/Datatable";
 import CustomTypography from "@/components/CustomTypography";
 import BoxWrapperColumn from "@/components/wrappers/BoxWrapperColumn";
 import {Box} from "@mui/material";
-import {useUser} from "@auth0/nextjs-auth0/client";
-import {useRouter} from "next/navigation";
-import Loading from "@/components/Loading";
+import {redirect} from "next/navigation";
+import {AppRouterPageRoute, getSession, withPageAuthRequired} from "@auth0/nextjs-auth0";
 
-interface PageProps {
-    transactions: any[]
-}
+const Page: AppRouterPageRoute = withPageAuthRequired(
+    async ()=> {
+        const session = await getSession()
+        const error = session?.error
 
-const Page = (props: PageProps) => {
-    const {user, error, isLoading} = useUser();
-    const {push} = useRouter()
+        if (error) redirect('/500')
 
-    if (isLoading) return <Loading/>;
-    if (error) push('/500')
-    if (!user) push('/')
-
-    return (
-        <BoxWrapperColumn gap={1}>
-            <CustomTypography variant={'h5'}>Treasury transactions</CustomTypography>
-            <Box sx={{
-                color: 'custom.black.primary',
-                backgroundColor: 'background.paper',
-            }}>
-                <DataTable/>
-            </Box>
-        </BoxWrapperColumn>
-    )
-}
+        return (
+            <BoxWrapperColumn gap={1}>
+                <CustomTypography variant={'h5'}>Transactions</CustomTypography>
+                <Box sx={{
+                    color: 'custom.black.primary',
+                    backgroundColor: 'background.paper',
+                }}>
+                    <DataTable/>
+                </Box>
+            </BoxWrapperColumn>
+        )
+    },  { returnTo: "/" })
 
 export default Page
