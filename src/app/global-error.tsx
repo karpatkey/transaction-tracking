@@ -1,12 +1,14 @@
-"use client";
+'use client'
+
 import BoxContainerWrapper from "@/components/wrappers/BoxContainerWrapper";
 import {Theme} from "@mui/system";
 import CustomTypography from "@/components/CustomTypography";
+import {Button} from "@mui/material";
 
-export default function Page() {
+export default function GlobalError({error, reset,}: { error: Error & { digest?: string ,reset: () => void }}) {
     return (
         <BoxContainerWrapper
-            sx={{height: '100%', backgroundColor: (theme: Theme) => theme.palette.background.default}}>
+            sx={{backgroundColor: (theme: Theme) => theme.palette.background.default}}>
             <CustomTypography
                 variant="h3"
                 sx={{
@@ -16,8 +18,9 @@ export default function Page() {
                     alignItems: 'center'
                 }}
             >
-                There was an error, contact a site administrator.
+                Something went wrong!
             </CustomTypography>
+            <Button onClick={() => reset()}>Try again</Button>
         </BoxContainerWrapper>
     )
 }

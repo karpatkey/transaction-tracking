@@ -1,12 +1,13 @@
-"use client";
-import BoxContainerWrapper from "@/components/wrappers/BoxContainerWrapper";
-import {Theme} from "@mui/system";
-import CustomTypography from "@/components/CustomTypography";
+'use client'
 
-export default function Page() {
+import CustomTypography from "@/components/CustomTypography";
+import {Theme} from "@mui/system";
+import BoxContainerWrapper from "@/components/wrappers/BoxContainerWrapper";
+
+export default function Error() {
     return (
         <BoxContainerWrapper
-            sx={{height: '100%', backgroundColor: (theme: Theme) => theme.palette.background.default}}>
+            sx={{backgroundColor: (theme: Theme) => theme.palette.background.default}}>
             <CustomTypography
                 variant="h3"
                 sx={{
@@ -16,7 +17,7 @@ export default function Page() {
                     alignItems: 'center'
                 }}
             >
-                There was an error, contact a site administrator.
+                Something went wrong!
             </CustomTypography>
         </BoxContainerWrapper>
     )

@@ -1,8 +1,5 @@
-"use client";
 import React from 'react';
 import {DataGrid, GridColDef, GridRowsProp} from '@mui/x-data-grid';
-import {Box} from "@mui/material";
-
 
 const columns: GridColDef[] = [
     {

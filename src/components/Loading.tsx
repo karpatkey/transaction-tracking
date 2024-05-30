@@ -1,22 +1,20 @@
 import CircularProgress from '@mui/material/CircularProgress'
 import * as React from 'react'
-import BoxWrapperColumn from "@/components/wrappers/BoxWrapperColumn";
+import BoxContainerWrapper from "@/components/wrappers/BoxContainerWrapper";
+import {Theme} from "@mui/system";
 
-interface LoadingProps {
-  minHeight?: string
-}
-
-const Loading = (props: LoadingProps) => {
+const Loading = () => {
   return (
-    <BoxWrapperColumn
-      sx={{
-        justifyContent: 'center',
-        alignItems: 'center',
-        minHeight: props?.minHeight
-      }}
-    >
-      <CircularProgress color="primary" />
-    </BoxWrapperColumn>
+      <BoxContainerWrapper
+          sx={{
+            backgroundColor: (theme: Theme) => theme.palette.background.default,
+            height: `calc(100vh - 194px)`,
+            display: 'flex',
+            justifyContent: 'center',
+            alignItems: 'center'
+          }}>
+        <CircularProgress color="primary" />
+      </BoxContainerWrapper>
   )
 }
 
