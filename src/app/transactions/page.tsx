@@ -4,11 +4,14 @@ import BoxWrapperColumn from "@/components/wrappers/BoxWrapperColumn";
 import {Box} from "@mui/material";
 import {redirect} from "next/navigation";
 import {AppRouterPageRoute, getSession, withPageAuthRequired} from "@auth0/nextjs-auth0";
+import {getTransactions} from "@/datawarehouse/service";
 
 const Page: AppRouterPageRoute = withPageAuthRequired(
     async ()=> {
         const session = await getSession()
         const error = session?.error
+
+        const transactions = await getTransactions()
 
         if (error) redirect('/500')
 
@@ -19,7 +22,7 @@ const Page: AppRouterPageRoute = withPageAuthRequired(
                     color: 'custom.black.primary',
                     backgroundColor: 'background.paper',
                 }}>
-                    <DataTable/>
+                    <DataTable transactions={transactions}/>
                 </Box>
             </BoxWrapperColumn>
         )

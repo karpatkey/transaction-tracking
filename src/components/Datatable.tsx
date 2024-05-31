@@ -392,9 +392,13 @@ const rows: GridRowsProp = [
     },
 ]
 
-const DataTable = () => {
+interface DataTableProps {
+    transactions: any[]
+}
+
+const DataTable = ({transactions}: DataTableProps) => {
     return (
-        <DataGrid rows={rows} columns={columns}/>
+        <DataGrid rows={transactions} columns={columns}/>
     )
 }
 

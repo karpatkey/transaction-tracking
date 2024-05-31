@@ -4,7 +4,7 @@ import "./globals.css";
 import { StyledRoot } from './StyledRoot';
 import {UserProvider} from '@auth0/nextjs-auth0/client';
 import LayoutTheme from '@/components/layout/Layout';
-import {IbmPlexMono} from "@/app/ui/fonts";
+import {IbmPlexMono} from "@/ui/fonts";
 
 export const metadata: Metadata = {
   title: "Transactions",
