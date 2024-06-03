@@ -1,3 +1,4 @@
+"use server";
 import DataTable from "@/components/Datatable";
 import CustomTypography from "@/components/CustomTypography";
 import BoxWrapperColumn from "@/components/wrappers/BoxWrapperColumn";
@@ -19,7 +20,7 @@ const Page: AppRouterPageRoute = withPageAuthRequired(
             <BoxWrapperColumn gap={1}>
                 <CustomTypography variant={'h5'}>Transactions</CustomTypography>
                 <Box sx={{
-                    color: 'custom.black.primary',
+                    color: 'customPalette.black.primary',
                     backgroundColor: 'background.paper',
                 }}>
                     <DataTable transactions={transactions}/>

@@ -1,3 +1,4 @@
+"use server";
 import CustomTypography from "@/components/CustomTypography";
 import BoxContainerWrapper from "@/components/wrappers/BoxContainerWrapper";
 import {redirect} from 'next/navigation'

@@ -1,14 +1,44 @@
 'use client';
-import { createTheme, responsiveFontSizes } from '@mui/material/styles';
+import { createTheme, responsiveFontSizes, Theme, ThemeOptions } from '@mui/material/styles';
 import { IBM_Plex_Mono } from 'next/font/google'
 
+declare module '@mui/material/styles' {
+    interface Theme {
+        customPalette: {
+            black: {
+                primary: string;
+            };
+            grey: {
+                primary: string;
+                secondary: string;
+                dark: string;
+                light: string;
+            };
+        };
+    }
+
+    // permite la configuración de `customPalette` en `createTheme`
+    interface ThemeOptions {
+        customPalette?: {
+            black?: {
+                primary?: string;
+            };
+            grey?: {
+                primary?: string;
+                secondary?: string;
+                dark?: string;
+                light?: string;
+            };
+        };
+    }
+}
 const PlexMono = IBM_Plex_Mono({
     weight: ['300', '400', '500', '700'],
     subsets: ['latin'],
     display: 'swap'
 })
 
-let theme = createTheme({
+let MyTheme = createTheme({
     palette: {
         background: {
             paper: '#eeeded',
@@ -36,16 +66,16 @@ let theme = createTheme({
         success: {
             main: '#54B9A1'
         },
-        custom: {
-            black: {
-                primary: '#1A1A1A'
-            },
-            grey: {
-                primary: '#808080',
-                secondary: '#7A7A7A',
-                dark: '#222222',
-                light: '#F5F5F5'
-            }
+    },
+    customPalette: {
+        black: {
+            primary: '#1A1A1A'
+        },
+        grey: {
+            primary: '#808080',
+            secondary: '#7A7A7A',
+            dark: '#222222',
+            light: '#F5F5F5'
         }
     },
     typography: {
@@ -124,6 +154,6 @@ let theme = createTheme({
     },
 });
 
-theme = responsiveFontSizes(theme);
+MyTheme = responsiveFontSizes(MyTheme);
 
-export default theme;
+export default MyTheme as Theme & ThemeOptions;

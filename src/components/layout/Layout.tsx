@@ -1,10 +1,11 @@
-"use server";
+"use client";
 import React from 'react'
 import {Box, CssBaseline} from '@mui/material'
 import Header from "@/components/layout/Header";
 import Sidebar, {DRAWER_WIDTH} from "@/components/layout/Sidebar";
 import Footer from "@/components/layout/Footer";
-import {getSession} from "@auth0/nextjs-auth0";
+import Loading from "@/components/Loading";
+import {useUser} from "@auth0/nextjs-auth0/client";
 
 interface LayoutProps {
   children: React.ReactNode;
@@ -54,15 +55,23 @@ const DisconnectedUserLayout = ({children}: LayoutProps): React.ReactNode => {
     )
 }
 
-const Layout = async({ children }: LayoutProps): Promise<React.ReactNode> => {
-    const session = await getSession()
-    const user = session?.user
+const Layout = ({ children }: LayoutProps): React.ReactNode => {
+    const { user, error, isLoading } = useUser();
 
-    if(user) {
+    if (isLoading) {
+        return <Loading/>
+    }
+
+    if (error) {
+        return <div>{error.message}</div>
+    }
+
+    if (user) {
         return <ConnectedUserLayout>{children}</ConnectedUserLayout>
     } else {
         return <DisconnectedUserLayout>{children}</DisconnectedUserLayout>
     }
+
 }
 
 export default Layout

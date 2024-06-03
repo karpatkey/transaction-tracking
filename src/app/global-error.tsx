@@ -5,7 +5,12 @@ import {Theme} from "@mui/system";
 import CustomTypography from "@/components/CustomTypography";
 import {Button} from "@mui/material";
 
-export default function GlobalError({error, reset,}: { error: Error & { digest?: string ,reset: () => void }}) {
+type Props = {
+    error: Error & { digest?: string };
+    reset: () => void;
+};
+
+export default function GlobalError({error, reset}: Props) {
     return (
         <BoxContainerWrapper
             sx={{backgroundColor: (theme: Theme) => theme.palette.background.default}}>
