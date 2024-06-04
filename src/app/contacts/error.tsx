@@ -6,7 +6,7 @@ import BoxContainerWrapper from "@/components/wrappers/BoxContainerWrapper";
 export default function Error() {
     return (
         <BoxContainerWrapper
-            sx={{backgroundColor:  'background.default'}}>
+            sx={{backgroundColor: 'background.default'}}>
             <CustomTypography
                 variant="h3"
                 sx={{

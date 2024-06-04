@@ -1,6 +1,9 @@
+"use client";
+
 import React from 'react';
 import {DataGrid, GridColDef, GridRowsProp} from '@mui/x-data-grid';
 import {Box} from "@mui/material";
+import {useAppStore} from "@/stores/useAppStore";
 
 const columns: GridColDef[] = [
     {
@@ -152,13 +155,11 @@ const columns: GridColDef[] = [
     },
 ];
 
-interface DataTableProps {
-    transactions: any[]
-}
 
-const DataTable = ({transactions}: DataTableProps) => {
+const DataTable = () => {
+    const transactions = useAppStore((state) => state.transactions);
     return (
-        <Box sx={{ height: 'calc(100vh - 180px)', width: '100%' }}>
+        <Box sx={{ height: 'calc(100vh - 240px)', width: '100%' }}>
             <DataGrid
                 rows={transactions}
                 columns={columns}
