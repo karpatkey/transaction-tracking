@@ -10,7 +10,7 @@ export const getTransactions = async () => {
             private_key: process.env?.GOOGLE_PRIVATE_KEY?.replace(new RegExp('\\\\n', 'g'), '\n')
         }
     })
-    const query = `SELECT * FROM \`karpatkey-data-warehouse.transaction_decoding.dm_wallet_transactions\` ORDER BY transaction_id DESC LIMIT 1000`;
+    const query = `SELECT * FROM \`karpatkey-data-warehouse.transaction_decoding.dm_wallet_transactions\` ORDER BY transaction_id DESC LIMIT 500`;
 
     let rows = []
     try {
@@ -46,10 +46,10 @@ export const mapRawDataToDatabase = (rows: any[]) => {
             "token_price": row['token_price'] || null,
             "block": row['Block'] || null,
             "edit_status": "not edited",
+            "dao": row['DAO'] || null,
+            "address": row['Address'] || null,
         }
         // token_type: 'elementary_asset',
-        // DAO: 'Aave DAO',
-        // Address: '0x25f2226b597e8f9514b3f68f00f494cf4f286491',
         // block_timestamp: BigQueryTimestamp { value: '2020-10-25T19:51:21.000Z' },
     })
 

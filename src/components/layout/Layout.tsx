@@ -56,16 +56,6 @@ const DisconnectedUserLayout = ({children}: LayoutProps): React.ReactNode => {
 }
 
 const Layout = async({ children }: LayoutProps) => {
-    // const { user, error, isLoading } = useUser();
-    //
-    // if (isLoading) {
-    //     return <Loading/>
-    // }
-    //
-    // if (error) {
-    //     return <div>{error.message}</div>
-    // }
-
     const session = await getSession()
     const user = session?.user
 

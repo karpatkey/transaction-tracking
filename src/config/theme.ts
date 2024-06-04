@@ -17,7 +17,6 @@ declare module '@mui/material/styles' {
         };
     }
 
-    // permite la configuración de `customPalette` en `createTheme`
     interface ThemeOptions {
         customPalette?: {
             black?: {
@@ -148,6 +147,16 @@ let MyTheme = createTheme({
             styleOverrides: {
                 root: {
                     textTransform: 'none',
+                },
+            },
+        },
+        MuiAccordion: {
+            styleOverrides: {
+                root: {
+                    boxShadow: 'none',
+                    border: '1px solid #E0E0E0',
+                    borderRadius: '8px',
+                    position: 'unset',
                 },
             },
         },
