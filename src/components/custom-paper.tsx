@@ -9,6 +9,6 @@ const StyledPaper = styled(MuiPaper)(() => ({
   boxShadow: '0px 0px 0px 0px #00000000'
 }))
 
-export const Paper: FC<PaperProps> = (props) => {
+export const CustomPaper: FC<PaperProps> = (props) => {
   return <StyledPaper {...props} />
 }

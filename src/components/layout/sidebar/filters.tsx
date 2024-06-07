@@ -1,6 +1,6 @@
 'use client'
-import BoxWrapperColumn from "@/components/wrappers/BoxWrapperColumn";
-import CustomTypography from "@/components/CustomTypography";
+import BoxWrapperColumn from "@/components/wrappers/box-wrapper-column";
+import CustomTypography from "@/components/custom-typography";
 import {
     Accordion,
     AccordionDetails,
@@ -11,20 +11,66 @@ import {
     FormGroup
 } from "@mui/material";
 import ExpandMoreIcon from "@mui/icons-material/ExpandMore";
-import {Paper} from "@/components/Paper";
-import {useAppStore} from "@/stores/useAppStore";
+import {CustomPaper} from "@/components/custom-paper";
+import {Filter} from "@/stores/use-app-store";
 import {formatEOAAccount} from "@/utils/string";
+import {usePathname, useRouter, useSearchParams} from "next/navigation";
+import React from "react";
+import {useAppStore} from "@/providers/app-provider";
+import BoxWrapperRow from "@/components/wrappers/box-wrapper-row";
 
 export const Filters = () => {
-    const DAOs = useAppStore((state) => state.DAOs);
-    const addresses = useAppStore((state) => state.addresses);
+    const router = useRouter()
+    const pathname = usePathname()
+    const searchParams = useSearchParams()
+
+    const DAOs = useAppStore(state => state.DAOs);
+    const addresses = useAppStore(state => state.addresses);
+
+    const [localAddresses, setLocalAddresses] = React.useState<Filter[]>([]);
+    const [localDAOs, setLocalDAOs] = React.useState<Filter[]>([]);
+
+    React.useEffect(() => {
+        setLocalAddresses(addresses);
+        setLocalDAOs(DAOs);
+    }, [addresses, DAOs]);
 
     const handleFilterSubmit = async () => {
-        console.log('A')
+        const addresses = localAddresses.filter(address => address.selected).map(address => address.value)
+        const DAOs = localDAOs.filter(dao => dao.selected).map(dao => dao.value)
+
+        const params = new URLSearchParams(searchParams);
+
+        if(addresses.length > 0) {
+            params.set('addresses', addresses.join(','))
+        } else {
+            // remove addresses from search params
+            params.delete('addresses')
+        }
+        if(DAOs.length > 0) {
+            params.set('daos', DAOs.join(','))
+        } else {
+            // remove DAOs from search params
+            params.delete('daos')
+        }
+
+        router.push(`${pathname}?${params.toString()}`)
     };
 
+    const handleCheckboxAddressesChange = (index: number) => (event: React.ChangeEvent<HTMLInputElement>) => {
+        let newAddresses = [...addresses];
+        newAddresses[index].selected = event.target.checked;
+        setLocalAddresses(newAddresses);
+    };
+
+    const handleCheckboxDAOsChange = (index: number) => (event: React.ChangeEvent<HTMLInputElement>) => {
+        let newDAOs = [...DAOs];
+        newDAOs[index].selected = event.target.checked;
+        setLocalDAOs(newDAOs);
+    }
+
     return (
-        <Paper sx={{padding: '24px 24px 24px 24px'}}>
+        <CustomPaper sx={{padding: '24px 24px 24px 24px'}}>
             <BoxWrapperColumn gap={2}>
                 <CustomTypography variant={"h3"}>
                     Filters:
@@ -41,11 +87,11 @@ export const Filters = () => {
                     <AccordionDetails>
                         <FormGroup>
                             {
-                                DAOs.map(((dao: string, index:number) => (
+                                localDAOs.map((({ value, selected}: Filter, index:number) => (
                                     <FormControlLabel
                                         key={index}
-                                        control={<Checkbox />}
-                                        label={dao}
+                                        control={<Checkbox checked={selected} onChange={handleCheckboxDAOsChange(index)} />}
+                                        label={value}
                                     />
                                 )))
                             }
@@ -64,21 +110,25 @@ export const Filters = () => {
                     <AccordionDetails>
                         <FormGroup>
                             {
-                                addresses.map(((address: string, index: number) => (
+                                localAddresses.map((({ value, selected}: Filter, index: number) => (
                                     <FormControlLabel
                                         key={index}
-                                        control={<Checkbox />}
-                                        label={formatEOAAccount(address)}
-                                        title={address}
+                                        control={<Checkbox checked={selected} onChange={handleCheckboxAddressesChange(index)} />}
+                                        label={formatEOAAccount(value)}
+                                        title={value}
+
                                     />
                                 )))
                             }
                         </FormGroup>
                     </AccordionDetails>
                 </Accordion>
+                <BoxWrapperRow sx={{justifyContent: 'flex-end'}} gap={"20px"}>
+                    <Button variant="contained" onClick={() => router.push(pathname)}>Clear</Button>
+                    <Button variant="contained" onClick={() => handleFilterSubmit()}>Apply</Button>
+                </BoxWrapperRow>
 
-                <Button variant="contained" onClick={() => handleFilterSubmit()}>Apply</Button>
             </BoxWrapperColumn>
-        </Paper>
+        </CustomPaper>
     )
 }

@@ -1,6 +1,6 @@
 import {BigQuery} from "@google-cloud/bigquery";
 
-export const getTransactions = async () => {
+export const getTransactions = async (DAOs: string[]) => {
     const bigQueryClient = new BigQuery({
         projectId: process.env.GOOGLE_PROJECT_ID,
         credentials: {
@@ -10,11 +10,19 @@ export const getTransactions = async () => {
             private_key: process.env?.GOOGLE_PRIVATE_KEY?.replace(new RegExp('\\\\n', 'g'), '\n')
         }
     })
-    const query = `SELECT * FROM \`karpatkey-data-warehouse.transaction_decoding.dm_wallet_transactions\` ORDER BY transaction_id DESC LIMIT 500`;
+    const sqlQuery = `SELECT * FROM \`karpatkey-data-warehouse.transaction_decoding.dm_wallet_transactions\`
+                                WHERE DAO IN UNNEST(@DAOs) 
+                                ORDER BY transaction_id DESC LIMIT 500`;
 
     let rows = []
+
     try {
-        const results = await bigQueryClient.query(query)
+        const options = {
+            query: sqlQuery,
+            params: {DAOs: DAOs},
+        };
+
+        const results = await bigQueryClient.query(options)
         rows = results[0];
     } catch (error) {
         console.error(error);

@@ -3,9 +3,9 @@ import React from 'react'
 import {useUser} from '@auth0/nextjs-auth0/client'
 import {AppBar, Avatar, Box, Button, Divider, Toolbar} from '@mui/material'
 import {useRouter} from 'next/navigation'
-import BoxWrapperRow from "@/components/wrappers/BoxWrapperRow";
-import CustomTypography from "@/components/CustomTypography";
-import LogoKarpatkey from "@/components/LogoKarpatkey";
+import BoxWrapperRow from "@/components/wrappers/box-wrapper-row";
+import CustomTypography from "@/components/custom-typography";
+import LogoKarpatkey from "@/components/logo-karpatkey";
 
 interface NotLoggedProps {
     onLogin: any

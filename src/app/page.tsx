@@ -1,9 +1,8 @@
 "use server";
-import CustomTypography from "@/components/CustomTypography";
-import BoxContainerWrapper from "@/components/wrappers/BoxContainerWrapper";
+import CustomTypography from "@/components/custom-typography";
+import BoxContainerWrapper from "@/components/wrappers/box-container-wrapper";
 import {redirect} from 'next/navigation'
 import {getSession} from "@auth0/nextjs-auth0";
-
 export default async function Home()  {
     const session = await getSession()
     const user = session?.user

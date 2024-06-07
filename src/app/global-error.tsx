@@ -1,9 +1,9 @@
 'use client'
 
-import BoxContainerWrapper from "@/components/wrappers/BoxContainerWrapper";
 import {Theme} from "@mui/system";
-import CustomTypography from "@/components/CustomTypography";
 import {Button} from "@mui/material";
+import BoxContainerWrapper from "@/components/wrappers/box-container-wrapper";
+import CustomTypography from "@/components/custom-typography";
 
 type Props = {
     error: Error & { digest?: string };

@@ -1,6 +1,6 @@
 "use server";
-import CustomTypography from "@/components/CustomTypography";
-import BoxWrapperColumn from "@/components/wrappers/BoxWrapperColumn";
+import CustomTypography from "@/components/custom-typography";
+import BoxWrapperColumn from "@/components/wrappers/box-wrapper-column";
 import {Box} from "@mui/material";
 import {redirect} from "next/navigation";
 import {AppRouterPageRoute, getSession, withPageAuthRequired} from "@auth0/nextjs-auth0";

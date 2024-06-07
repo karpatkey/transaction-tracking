@@ -1,12 +1,12 @@
 import {Box, Link} from '@mui/material'
 import React from 'react'
-import CustomTypography from "@/components/CustomTypography";
-import BoxWrapperRow from "@/components/wrappers/BoxWrapperRow";
-import Github from "@/components/assets/icons/socials/Github";
-import Twitter from "@/components/assets/icons/socials/Twitter";
-import Mirror from "@/components/assets/icons/socials/Mirror";
-import Linkedin from "@/components/assets/icons/socials/Linkedin";
-import {DRAWER_WIDTH} from "@/components/layout/Sidebar";
+import CustomTypography from "@/components/custom-typography";
+import BoxWrapperRow from "@/components/wrappers/box-wrapper-row";
+import Github from "@/components/assets/icons/socials/github";
+import Twitter from "@/components/assets/icons/socials/twitter";
+import Mirror from "@/components/assets/icons/socials/mirror";
+import Linkedin from "@/components/assets/icons/socials/linkedin";
+import {DRAWER_WIDTH} from "@/components/layout/sidebar";
 import {getSession} from "@auth0/nextjs-auth0";
 
 const Footer = async () => {

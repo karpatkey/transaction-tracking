@@ -1,7 +1,6 @@
 "use client";
-import CustomTypography from "@/components/CustomTypography";
-import {Theme} from "@mui/system";
-import BoxContainerWrapper from "@/components/wrappers/BoxContainerWrapper";
+import CustomTypography from "@/components/custom-typography";
+import BoxContainerWrapper from "@/components/wrappers/box-container-wrapper";
 
 export default function Error() {
     return (

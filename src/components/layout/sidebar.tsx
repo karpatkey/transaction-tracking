@@ -4,7 +4,11 @@ import {Filters} from "@/components/layout/sidebar/filters";
 
 export const DRAWER_WIDTH = 340;
 
-const Sidebar = async () => {
+type Props = {
+    withFilters?: boolean;
+}
+
+const Sidebar = ({ withFilters = false }: Props) => {
     return (
         <Drawer
             variant="permanent"
@@ -17,8 +21,8 @@ const Sidebar = async () => {
             <Toolbar/>
             <Box sx={{overflow: 'auto'}}>
                 <Menus />
-                <Divider/>
-                <Filters/>
+                { withFilters ?  <Divider/> : null}
+                { withFilters ?  <Filters/> : null}
             </Box>
         </Drawer>
     )

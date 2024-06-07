@@ -3,13 +3,25 @@
 import React from 'react';
 import {DataGrid, GridColDef, GridRowsProp} from '@mui/x-data-grid';
 import {Box} from "@mui/material";
-import {useAppStore} from "@/stores/useAppStore";
+import {useAppStore} from "@/providers/app-provider";
 
 const columns: GridColDef[] = [
     {
         field: 'id',
         headerName: 'ID',
         type: 'number',
+        width: 180,
+    },
+    {
+        field: 'dao',
+        headerName: 'DAO',
+        type: 'string',
+        width: 180,
+    },
+    {
+        field: 'address',
+        headerName: 'Address',
+        type: 'string',
         width: 180,
     },
     {
@@ -155,9 +167,12 @@ const columns: GridColDef[] = [
     },
 ];
 
+type Props = {
+    transactions: any[]
+}
 
-const DataTable = () => {
-    const transactions = useAppStore((state) => state.transactions);
+const Datatable = ({transactions}: Props) => {
+
     return (
         <Box sx={{ height: 'calc(100vh - 240px)', width: '100%' }}>
             <DataGrid
@@ -176,4 +191,4 @@ const DataTable = () => {
     )
 }
 
-export default DataTable;
+export default Datatable;

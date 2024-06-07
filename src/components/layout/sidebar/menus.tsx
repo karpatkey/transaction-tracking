@@ -1,14 +1,14 @@
-import {Paper} from "@/components/Paper";
-import BoxWrapperColumn from "@/components/wrappers/BoxWrapperColumn";
+import {CustomPaper} from "@/components/custom-paper";
+import BoxWrapperColumn from "@/components/wrappers/box-wrapper-column";
 import {Link, List, ListItem} from "@mui/material";
 
 export const Menus = () => {
     return (
-        <Paper sx={{padding: '24px 24px 24px 24px'}}>
+        <CustomPaper sx={{padding: '24px 24px 24px 24px'}}>
             <BoxWrapperColumn gap={2}>
                 <List>
                     <ListItem button key='contacts' sx={{paddingLeft: 0}}>
-                        <Link href="/src/components/layout/sidebar/menues">
+                        <Link href="/contacts">
                             Contacts
                         </Link>
                     </ListItem>
@@ -19,6 +19,6 @@ export const Menus = () => {
                     </ListItem>
                 </List>
             </BoxWrapperColumn>
-        </Paper>
+        </CustomPaper>
     )
 }

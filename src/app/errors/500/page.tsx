@@ -1,6 +1,5 @@
-import BoxContainerWrapper from "@/components/wrappers/BoxContainerWrapper";
-import {Theme} from "@mui/system";
-import CustomTypography from "@/components/CustomTypography";
+import BoxContainerWrapper from "@/components/wrappers/box-container-wrapper";
+import CustomTypography from "@/components/custom-typography";
 
 export default function Page() {
     return (

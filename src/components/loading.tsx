@@ -1,6 +1,6 @@
 import CircularProgress from '@mui/material/CircularProgress'
 import * as React from 'react'
-import BoxContainerWrapper from "@/components/wrappers/BoxContainerWrapper";
+import BoxContainerWrapper from "@/components/wrappers/box-container-wrapper";
 
 const Loading = () => {
   return (
