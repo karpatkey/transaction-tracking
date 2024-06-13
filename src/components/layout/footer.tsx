@@ -1,3 +1,4 @@
+"use client";
 import {Box, Link} from '@mui/material'
 import React from 'react'
 import CustomTypography from "@/components/custom-typography";
@@ -7,14 +8,22 @@ import Twitter from "@/components/assets/icons/socials/twitter";
 import Mirror from "@/components/assets/icons/socials/mirror";
 import Linkedin from "@/components/assets/icons/socials/linkedin";
 import {DRAWER_WIDTH} from "@/components/layout/sidebar";
-import {getSession} from "@auth0/nextjs-auth0";
+import {useParams, usePathname} from 'next/navigation'
 
-const Footer = async () => {
-    const session = await getSession()
-    const user = session?.user
+const pathnameWithReducedDrawerWidth = [
+    '/dao',
+]
 
+const Footer =  () => {
     const year = new Date()
     const fullYear = year.getFullYear()
+
+    const params = useParams();
+    const pathname = usePathname()
+    const id = params?.id || ''
+    const pathnameWithoutId = pathname.replace(`/${id}`, '')
+
+    const isReducedDrawerWidth = pathnameWithReducedDrawerWidth.includes(pathnameWithoutId)
 
     return (
         <Box
@@ -28,8 +37,8 @@ const Footer = async () => {
                 justifyContent: 'space-between',
                 alignItems: 'center',
                 bottom: 0,
-                width: user ? `calc(100% - ${DRAWER_WIDTH}px)` : '100%',
-                ml: user ? `${DRAWER_WIDTH}px` : 0
+                width: isReducedDrawerWidth ? `calc(100% - ${DRAWER_WIDTH}px)` : '100%',
+                ml: isReducedDrawerWidth ? `${DRAWER_WIDTH}px` : 0
             }}
         >
             <BoxWrapperRow>

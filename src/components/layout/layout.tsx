@@ -17,11 +17,10 @@ const Layout = async ({children}: Props) => {
                 display: 'flex',
                 flexDirection: 'column',
                 mt: '64px',
-                backgroundColor: 'background.default'
+                backgroundColor: 'background.default',
+                pr: '32px', pl: '32px', pt: '32px', pb: '32px'
             }}>
-                <Box sx={{flexGrow: 1, pr: '32px', pl: '32px', pt: '32px', pb: '32px'}}>
-                    {children}
-                </Box>
+                {children}
             </Box>
             <Footer/>
         </Box>

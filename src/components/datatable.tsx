@@ -3,7 +3,6 @@
 import React from 'react';
 import {DataGrid, GridColDef, GridRowsProp} from '@mui/x-data-grid';
 import {Box} from "@mui/material";
-import {useAppStore} from "@/providers/app-provider";
 
 const columns: GridColDef[] = [
     {
