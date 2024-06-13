@@ -11,7 +11,7 @@ export const getTransactions = async (DAOs: string[]) => {
         }
     })
     const sqlQuery = `SELECT * FROM \`karpatkey-data-warehouse.transaction_decoding.dm_wallet_transactions\`
-                                WHERE DAO IN UNNEST(@DAOs) 
+
                                 ORDER BY transaction_id DESC LIMIT 500`;
 
     let rows = []
@@ -19,7 +19,6 @@ export const getTransactions = async (DAOs: string[]) => {
     try {
         const options = {
             query: sqlQuery,
-            params: {DAOs: DAOs},
         };
 
         const results = await bigQueryClient.query(options)
