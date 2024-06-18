@@ -7,6 +7,13 @@ import {DAOs as DAOsConfig, mapDAOs} from "@/config/app";
 import React from "react";
 import Sidebar, {DRAWER_WIDTH} from "@/components/layout/sidebar";
 import {inverse} from "@/utils/object";
+import {NotFound} from "@/components/not-found";
+import dynamic from 'next/dynamic'
+
+const ContactsWithNoSSR = dynamic(() =>
+        import('@/components/contacts').then((mod) => mod.Contacts),
+    { ssr: false }
+)
 
 type Props = {
     params: { id: string }
@@ -38,40 +45,23 @@ const Page: AppRouterPageRoute = withPageAuthRequired(
             dao.name.toLowerCase() === DAOId.toLowerCase() && DAOs.includes(inverse(mapDAOs)[DAOId]))
 
         if(!DAOItem) {
-            return <Box sx={{
-                display: 'flex',
-                justifyContent: 'center',
-                alignItems: 'center',
-                gap: '20px 20px',
-            }}>
-                <Box sx={{
-                    display: 'flex',
-                    justifyContent: 'center',
-                    alignItems: 'center',
-                    gap: '20px 20px',
-                }}>
-                    <CustomTypography variant={'h1'}>DAO not found</CustomTypography>
-                </Box>
-            </Box>
+            return <NotFound />
         }
 
         return (
             <>
                 <Sidebar DAO={DAOItem} withFilters={false}/>
                 <Box
-                    component="main"
                     sx={{
                         display: 'flex',
                         flexDirection: 'column',
                         gap: '20px',
-                        padding: '24px',
                         width:  `100%`,
-                        pl: `${DRAWER_WIDTH + 24}px`,
                         backgroundColor: 'background.default',
-                        position: 'absolute',
                     }}
                 >
                     <CustomTypography variant={'h5'}>Contacts</CustomTypography>
+                    <ContactsWithNoSSR />
                 </Box>
             </>
         )

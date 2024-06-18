@@ -22,11 +22,6 @@ export const Menus = ({daoName}: Props) => {
                             </Link>
                         </ListItem>
                     }
-                    <ListItem button key='daos' sx={{paddingLeft: 0}}>
-                        <Link href="/dao">
-                            DAOs
-                        </Link>
-                    </ListItem>
                 </List>
             </BoxWrapperColumn>
         </CustomPaper>

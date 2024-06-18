@@ -15,8 +15,21 @@ const Sidebar = ({ withFilters = true, DAO }: Props) => {
     return (
         <Box
             component="nav"
-            sx={{ width: DRAWER_WIDTH, flexShrink: { sm: 0 } }}
-            aria-label="mailbox folders"
+            sx={{
+                width: DRAWER_WIDTH,
+                flexShrink: { sm: 0 },
+                '&::-webkit-scrollbar': {
+                    width: '5px',
+                    padding: '10px',
+                    margin: '10px'
+                },
+                '::-webkit-scrollbar-thumb': {
+                    background: '#d3d3d3'
+                },
+                '::-webkit-scrollbar-track': {
+                    background: '#f1f1f1'
+                }
+            }}
         >
             <Drawer
                 variant="permanent"
