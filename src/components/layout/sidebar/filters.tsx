@@ -56,7 +56,7 @@ export const Filters = () => {
         <CustomPaper sx={{padding: '24px 24px 24px 24px'}}>
             <BoxWrapperColumn gap={2}>
                 <CustomTypography variant={"h3"}>
-                    Addresses:
+                    DAO addresses:
                 </CustomTypography>
 
                 <FormGroup>

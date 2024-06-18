@@ -7,6 +7,7 @@ import {DAOs as DAOsConfig, mapDAOs} from "@/config/app";
 import React from "react";
 import Sidebar, {DRAWER_WIDTH} from "@/components/layout/sidebar";
 import {inverse} from "@/utils/object";
+import {NotFound} from "@/components/not-found";
 
 type Props = {
     params: { id: string }
@@ -38,21 +39,7 @@ const Page: AppRouterPageRoute = withPageAuthRequired(
             dao.name.toLowerCase() === DAOId.toLowerCase() && DAOs.includes(inverse(mapDAOs)[DAOId]))
 
         if(!DAOItem) {
-            return <Box sx={{
-                display: 'flex',
-                justifyContent: 'center',
-                alignItems: 'center',
-                gap: '20px 20px',
-            }}>
-                <Box sx={{
-                    display: 'flex',
-                    justifyContent: 'center',
-                    alignItems: 'center',
-                    gap: '20px 20px',
-                }}>
-                    <CustomTypography variant={'h1'}>DAO not found</CustomTypography>
-                </Box>
-            </Box>
+            return <NotFound />
         }
 
         return (

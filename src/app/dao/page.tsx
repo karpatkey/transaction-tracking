@@ -4,6 +4,7 @@ import {redirect} from "next/navigation";
 import {AppRouterPageRoute, getSession, withPageAuthRequired} from "@auth0/nextjs-auth0";
 import React from "react";
 import {DAO} from "@/components/dao";
+import {DAOs as DAOsConfig, DAOType} from "@/config/app";
 
 const Page: AppRouterPageRoute = withPageAuthRequired(
     async () => {
@@ -21,6 +22,15 @@ const Page: AppRouterPageRoute = withPageAuthRequired(
 
         const DAOs: string[] = roles
 
+        const DAOsMapped = DAOs.map((dao: string) => {
+            const DAOFounded = DAOsConfig.find((daoConfig: {id: string, name: string}) => {
+                return daoConfig.id.toLowerCase() === dao.toLowerCase()
+            })
+            return {
+                ...(DAOFounded ?? {name: dao, icon: ''}),
+            }
+        })
+
         return (
             <Box sx={{
                     display: 'flex',
@@ -30,8 +40,8 @@ const Page: AppRouterPageRoute = withPageAuthRequired(
                     gap: '20px 20px',
             }}>
             {
-                DAOs.map((DAOItem: string) => {
-                    return <DAO value={DAOItem} />
+                DAOsMapped.map((DAOItem: DAOType) => {
+                    return <DAO DAO={DAOItem} />
                 })
             }
             </Box>

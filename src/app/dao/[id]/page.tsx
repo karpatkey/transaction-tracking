@@ -11,6 +11,7 @@ import {AppStore} from "@/stores/use-app-store";
 import {getTransactions} from "@/datawarehouse/service";
 import Datatable from "@/components/datatable";
 import {inverse} from "@/utils/object";
+import {NotFound} from "@/components/not-found";
 
 type Props = {
     params: { id: string }
@@ -42,21 +43,7 @@ const Page: AppRouterPageRoute = withPageAuthRequired(
             dao.name.toLowerCase() === DAOId.toLowerCase() && DAOs.includes(inverse(mapDAOs)[DAOId]))
 
         if(!DAOItem) {
-            return <Box sx={{
-                display: 'flex',
-                justifyContent: 'center',
-                alignItems: 'center',
-                gap: '20px 20px',
-            }}>
-                <Box sx={{
-                    display: 'flex',
-                    justifyContent: 'center',
-                    alignItems: 'center',
-                    gap: '20px 20px',
-                }}>
-                    <CustomTypography variant={'h1'}>DAO not found</CustomTypography>
-                </Box>
-            </Box>
+            return <NotFound />
         }
 
         // get transactions
