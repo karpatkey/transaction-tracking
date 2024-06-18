@@ -8,6 +8,12 @@ import React from "react";
 import Sidebar, {DRAWER_WIDTH} from "@/components/layout/sidebar";
 import {inverse} from "@/utils/object";
 import {NotFound} from "@/components/not-found";
+import dynamic from 'next/dynamic'
+
+const ContactsWithNoSSR = dynamic(() =>
+        import('@/components/contacts').then((mod) => mod.Contacts),
+    { ssr: false }
+)
 
 type Props = {
     params: { id: string }
@@ -46,19 +52,16 @@ const Page: AppRouterPageRoute = withPageAuthRequired(
             <>
                 <Sidebar DAO={DAOItem} withFilters={false}/>
                 <Box
-                    component="main"
                     sx={{
                         display: 'flex',
                         flexDirection: 'column',
                         gap: '20px',
-                        padding: '24px',
                         width:  `100%`,
-                        pl: `${DRAWER_WIDTH + 24}px`,
                         backgroundColor: 'background.default',
-                        position: 'absolute',
                     }}
                 >
                     <CustomTypography variant={'h5'}>Contacts</CustomTypography>
+                    <ContactsWithNoSSR />
                 </Box>
             </>
         )
