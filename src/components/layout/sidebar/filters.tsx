@@ -2,54 +2,51 @@
 import BoxWrapperColumn from "@/components/wrappers/box-wrapper-column";
 import CustomTypography from "@/components/custom-typography";
 import {
-    Accordion,
-    AccordionDetails,
-    AccordionSummary,
     Button,
     Checkbox,
     FormControlLabel,
     FormGroup
 } from "@mui/material";
-import ExpandMoreIcon from "@mui/icons-material/ExpandMore";
 import {CustomPaper} from "@/components/custom-paper";
 import {Filter} from "@/stores/use-app-store";
 import {formatEOAAccount} from "@/utils/string";
-import {usePathname, useRouter, useSearchParams} from "next/navigation";
+import {usePathname, useRouter} from "next/navigation";
 import React from "react";
 import {useAppStore} from "@/providers/app-provider";
 import BoxWrapperRow from "@/components/wrappers/box-wrapper-row";
+import {DAOType} from "@/config/app";
 
-export const Filters = () => {
+type Props  = {
+    DAO: DAOType
+}
+
+export const Filters = ( {DAO}: Props) => {
     const router = useRouter()
     const pathname = usePathname()
-    const searchParams = useSearchParams()
 
     const addresses = useAppStore(state => state.addresses);
 
-    const [localAddresses, setLocalAddresses] = React.useState<Filter[]>([]);
-
-    React.useEffect(() => {
-        setLocalAddresses(addresses);
-    }, [addresses]);
+    const [localAddresses, setLocalAddresses] = React.useState<Filter[]>(addresses);
 
     const handleFilterSubmit = async () => {
         const addresses = localAddresses.filter(address => address.selected).map(address => address.value)
 
-        const params = new URLSearchParams(searchParams);
+        const params = new URLSearchParams();
 
         if(addresses.length > 0) {
-            params.set('addresses', addresses.join(','))
+            params.set('addresses', addresses.join('+'))
         } else {
             // remove addresses from search params
             params.delete('addresses')
         }
 
-        router.push(`${pathname}?${params.toString()}`)
+        router.push(`/dao/${DAO.name}/${params.get('addresses')}`)
     };
 
     const handleCheckboxAddressesChange = (index: number) => (event: React.ChangeEvent<HTMLInputElement>) => {
         let newAddresses = [...addresses];
         newAddresses[index].selected = event.target.checked;
+        setLocalAddresses(newAddresses);
     };
 
     return (

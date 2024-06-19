@@ -165,8 +165,6 @@ export const Contacts = () => {
         },
     ];
 
-    console.log('rows', rows)
-
     return (
         <Box
             sx={{

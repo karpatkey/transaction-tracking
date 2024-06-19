@@ -1,6 +1,6 @@
 "use client";
 import {ErrorBoundary} from "next/dist/client/components/error-boundary";
-import Error from "@/app/transactions/error";
+import Error from "@/app/dao/error";
 import React from "react";
 import BoxWrapperColumn from "@/components/wrappers/box-wrapper-column";
 

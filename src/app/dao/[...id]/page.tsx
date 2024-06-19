@@ -1,20 +1,19 @@
 "use server";
-import {Box, Toolbar} from "@mui/material";
+import {Box} from "@mui/material";
 import {redirect} from "next/navigation";
 import {AppRouterPageRoute, getSession, withPageAuthRequired} from "@auth0/nextjs-auth0";
 import React from "react";
 import CustomTypography from "@/components/custom-typography";
-import {DAOs as DAOsConfig, mapDAOs} from "@/config/app";
+import {DAOs as DAOsConfig, DAOType} from "@/config/app";
 import {AppStoreProvider} from "@/providers/app-provider";
 import Sidebar, {DRAWER_WIDTH} from "@/components/layout/sidebar";
 import {AppStore} from "@/stores/use-app-store";
-import {getTransactions} from "@/datawarehouse/service";
+import {getAddresses, getTransactions} from "@/datawarehouse/service";
 import Datatable from "@/components/datatable";
-import {inverse} from "@/utils/object";
 import {NotFound} from "@/components/not-found";
 
 type Props = {
-    params: { id: string }
+    params: { id: string[] }
     searchParams: { [key: string]: string | string[] | undefined }
 }
 
@@ -35,26 +34,40 @@ const Page: AppRouterPageRoute = withPageAuthRequired(
         // DAOs from user roles
         const DAOs: string[] = roles
 
-        // DAO from params
-        const DAOId = params.id
+        if(DAOs.length === 0) {
+            return <NotFound title={'No DAOs found'} />
+        }
 
-        // check if DAO exists
-        const DAOItem = DAOsConfig.find((dao: {id: string, name: string}) =>
-            dao.name.toLowerCase() === DAOId.toLowerCase() && DAOs.includes(inverse(mapDAOs)[DAOId]))
+        // DAO from params
+        const [ DAOId = '' , addressesId] = params.id
+
+        // Check if DAO exists
+        const DAOItem = DAOsConfig.find((daoConfig: DAOType) => {
+            return daoConfig.name.toLowerCase() === DAOId.toLowerCase()
+        })
 
         if(!DAOItem) {
             return <NotFound />
         }
 
-        // get transactions
-        const transactions = await getTransactions()
+        // Check if DAO exists in the roles
+        if(!DAOItem || !DAOs.includes(DAOItem.role)) {
+            return <NotFound />
+        }
 
-        // get unique addresses from all DAOs
-        const addresses = transactions.map((transaction) => transaction.address)
+        // replace %2B with + and split by + plus sign
+        const addressesItems = addressesId?.replaceAll('%2B', '+')
+            ?.split('+') ?? []
+
+        // Get transactions
+        const transactions = await getTransactions(DAOItem.dbId, addressesItems)
+        const addresses = await getAddresses(DAOItem.dbId)
+
+        // Get unique addresses from all DAOs
         const uniqueAddresses = [...new Set(addresses)]
         const addressesSelected = uniqueAddresses.map((address: string) => ({
             value: address,
-            selected: true
+            selected: addressesItems.includes(address)
         }))
 
         const initialStateValues = {

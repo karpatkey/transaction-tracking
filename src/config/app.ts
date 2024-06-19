@@ -1,71 +1,57 @@
-export const mapDAOs = {
-    'karpatkey DAO': 'karpatkey',
-    'Gnosis Ltd': 'Gnosis LTD',
-    'Gnosis DAO': 'GnosisDAO',
-    'ENS DAO': 'ENS',
-    'Balancer DAO': 'Balancer',
-}
-
 export type DAOType = {
-    id: string
+    role: string
+    dbId: string
     name: string
     icon: string
 }
 
 export const DAOs: DAOType[] = [
     {
-        id: 'Gnosis DAO',
+        role: 'Gnosis DAO',
+        dbId: 'GnosisDAO',
         name: 'Gnosis',
         icon: '/images/protocols/gnosis.svg',
     },
     {
-        id: 'Gnosis LTD',
-        name: 'Gnosis LTD',
+        role: 'Gnosis Ltd',
+        dbId: 'Gnosis LTD',
+        name: 'Gnosis Ltd',
         icon: '/images/protocols/gnosis.svg',
     },
     {
-        id: 'Balancer DAO',
+        role: 'Balancer DAO',
+        dbId: 'Balancer-2',
         name: 'Balancer',
         icon: '/images/protocols/balancer.svg',
     },
     {
-        id: 'ENS DAO',
+        role: 'ENS DAO',
+        dbId: 'ENS',
         name: 'ENS',
         icon: '/images/protocols/ens.svg',
     },
     {
-        id: 'CoW DAO',
+        role: 'CoW DAO',
+        dbId: 'Cow-2',
         name: 'CoW Protocol',
         icon: '/images/protocols/cow.svg',
     },
     {
-        id: 'karpatkey DAO',
+        role: 'karpatkey DAO',
+        dbId: 'Karpatkey',
         name: 'karpatkey',
         icon: '/images/protocols/karpatkey.svg',
     },
     {
-        id: 'Gnosis Guild',
-        name: 'Gnosis Guild',
-        icon: '/images/protocols/gnosis.svg',
-    },
-    {
-        id: 'Lido',
+        role: 'Lido',
+        dbId: 'Lido',
         name: 'Lido',
         icon: '/images/protocols/lido.svg',
     },
     {
-        id: 'Aave DAO',
+        role: 'Aave DAO',
+        dbId: 'Aave DAO',
         name: 'Aave',
         icon: '/images/protocols/aave.svg',
-    },
-    {
-        id: 'Safe<>Gnosis',
-        name: 'Safe<>Gnosis',
-        icon: '/images/protocols/safe-gnosis.svg',
-    },
-    {
-        id: 'Safe',
-        name: 'Safe',
-        icon: '/images/protocols/safe.svg',
     }
 ]
