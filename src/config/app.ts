@@ -32,7 +32,7 @@ export const DAOs: DAOType[] = [
     },
     {
         role: 'CoW DAO',
-        dbId: 'Cow-2',
+        dbId: 'CowDAO',
         name: 'CoW Protocol',
         icon: '/images/protocols/cow.svg',
     },

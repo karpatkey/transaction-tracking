@@ -41,7 +41,10 @@ const Page: AppRouterPageRoute = withPageAuthRequired(
         }
 
         // DAO from params
-        const DAOId = params.id
+        const DAOIdItem = params.id
+
+        const DAOId = DAOIdItem.replaceAll('%20', ' ')
+
 
         // Check if DAO exists
         const DAOItem = DAOsConfig.find((daoConfig: DAOType) => {
