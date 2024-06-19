@@ -1,6 +1,6 @@
 import {BigQuery} from "@google-cloud/bigquery";
 
-export const getTransactions = async (DAOs: string[]) => {
+export const getTransactions = async (DAOId: string, addresses: string[]) => {
     const bigQueryClient = new BigQuery({
         projectId: process.env.GOOGLE_PROJECT_ID,
         credentials: {
@@ -10,15 +10,25 @@ export const getTransactions = async (DAOs: string[]) => {
             private_key: process.env?.GOOGLE_PRIVATE_KEY?.replace(new RegExp('\\\\n', 'g'), '\n')
         }
     })
-    const sqlQuery = `SELECT * FROM \`karpatkey-data-warehouse.transaction_decoding.dm_wallet_transactions\`
 
-                                ORDER BY transaction_id DESC LIMIT 500`;
+    let sqlQuery = `SELECT * FROM \`karpatkey-data-warehouse.transaction_decoding.dm_wallet_transactions\`
+             WHERE DAO IN UNNEST(@DAOs) `;
 
     let rows = []
+
+    if (addresses.length > 0) {
+        sqlQuery += `AND Address IN UNNEST(@addresses)`
+    }
+
+    sqlQuery += `ORDER BY aud_ins_dttm DESC LIMIT 1000`
 
     try {
         const options = {
             query: sqlQuery,
+            params: {
+                DAOs: [DAOId],
+                ...(addresses.length > 0 ? {addresses} : {})
+            },
         };
 
         const results = await bigQueryClient.query(options)
@@ -30,6 +40,41 @@ export const getTransactions = async (DAOs: string[]) => {
 
     return rows.length > 0 ? mapRawDataToDatabase(rows): []
 }
+
+export const getAddresses = async (DAOId: string) => {
+    const bigQueryClient = new BigQuery({
+        projectId: process.env.GOOGLE_PROJECT_ID,
+        credentials: {
+            client_id: process.env.GOOGLE_CLIENT_ID,
+            client_email: process.env.GOOGLE_CLIENT_EMAIL,
+            project_id: process.env.GOOGLE_PROJECT_ID,
+            private_key: process.env?.GOOGLE_PRIVATE_KEY?.replace(new RegExp('\\\\n', 'g'), '\n')
+        }
+    })
+
+    let sqlQuery = `SELECT DISTINCT Address FROM \`karpatkey-data-warehouse.transaction_decoding.dm_wallet_transactions\`
+             WHERE DAO IN UNNEST(@DAOs)`;
+
+    let rows = []
+
+    try {
+        const options = {
+            query: sqlQuery,
+            params: {
+                DAOs: [DAOId]
+            },
+        };
+
+        const results = await bigQueryClient.query(options)
+        rows = results[0];
+    } catch (error) {
+        console.error(error);
+    }
+
+    return rows.length > 0 ? rows.map((row: any) => row['Address']): []
+
+}
+
 
 export const mapRawDataToDatabase = (rows: any[]) => {
     const results = rows.map((row: any) => {

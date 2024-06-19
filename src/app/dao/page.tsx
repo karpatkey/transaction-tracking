@@ -5,6 +5,7 @@ import {AppRouterPageRoute, getSession, withPageAuthRequired} from "@auth0/nextj
 import React from "react";
 import {DAO} from "@/components/dao";
 import {DAOs as DAOsConfig, DAOType} from "@/config/app";
+import {NotFound} from "@/components/not-found";
 
 const Page: AppRouterPageRoute = withPageAuthRequired(
     async () => {
@@ -22,12 +23,14 @@ const Page: AppRouterPageRoute = withPageAuthRequired(
 
         const DAOs: string[] = roles
 
-        const DAOsMapped = DAOs.map((dao: string) => {
-            const DAOFounded = DAOsConfig.find((daoConfig: {id: string, name: string}) => {
-                return daoConfig.id.toLowerCase() === dao.toLowerCase()
-            })
+        if(DAOs.length === 0) {
+            return <NotFound title={'No DAOs found'} />
+        }
+
+        const DAOsMapped = DAOs.map((DAORole: string) => {
+            const DAOFounded = DAOsConfig.find((daoConfig: DAOType) => daoConfig.role === DAORole)
             return {
-                ...(DAOFounded ?? {name: dao, icon: ''}),
+                ...(DAOFounded ?? {name: DAORole, icon: ''}),
             }
         })
 

@@ -48,7 +48,7 @@ const Sidebar = ({ withFilters = true, DAO }: Props) => {
                     <Divider/>
                     <Menus daoName={DAO.name}/>
                     {withFilters && <Divider/>}
-                    {withFilters && <Filters/>}
+                    {withFilters && <Filters DAO={DAO}/>}
                 </Box>
             </Drawer>
         </Box>

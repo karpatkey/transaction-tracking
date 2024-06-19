@@ -4,9 +4,9 @@ import {useUser} from '@auth0/nextjs-auth0/client'
 import {AppBar, Avatar, Box, Button, Divider, Menu, MenuItem, Toolbar} from '@mui/material'
 import {useRouter} from 'next/navigation'
 import BoxWrapperRow from "@/components/wrappers/box-wrapper-row";
-import CustomTypography from "@/components/custom-typography";
 import LogoKarpatkey from "@/components/logo-karpatkey";
-import {mapDAOs} from "@/config/app";
+import {DAOs as DAOsConfig} from "@/config/app";
+
 
 interface NotLoggedProps {
     onLogin: any
@@ -76,8 +76,9 @@ const Logged = (props: LoggedProps) => {
                 >
                     {
                         DAOs.map((DAOItem: string) => {
-                            const item = mapDAOs[DAOItem]
-                            return <MenuItem onClick={()=> goToDao(item)} key={item}>{item}</MenuItem>
+                            const item = DAOsConfig.find((daoConfig) => daoConfig?.role?.toLowerCase() === DAOItem?.toLowerCase())?.name
+                            if(!item) return null
+                            return <MenuItem onClick={()=> goToDao(item as string)} key={item}>{item}</MenuItem>
                         })
                     }
                     <MenuItem onClick={onLogout}>Logout</MenuItem>

@@ -3,10 +3,9 @@ import CustomTypography from "@/components/custom-typography";
 import {Box} from "@mui/material";
 import {redirect} from "next/navigation";
 import {AppRouterPageRoute, getSession, withPageAuthRequired} from "@auth0/nextjs-auth0";
-import {DAOs as DAOsConfig, mapDAOs} from "@/config/app";
+import {DAOs as DAOsConfig, DAOType} from "@/config/app";
 import React from "react";
-import Sidebar, {DRAWER_WIDTH} from "@/components/layout/sidebar";
-import {inverse} from "@/utils/object";
+import Sidebar from "@/components/layout/sidebar";
 import {NotFound} from "@/components/not-found";
 import dynamic from 'next/dynamic'
 
@@ -37,14 +36,24 @@ const Page: AppRouterPageRoute = withPageAuthRequired(
         // DAOs from user roles
         const DAOs: string[] = roles
 
-        // DAO from params
-        const DAOId = params.id
+        if(DAOs.length === 0) {
+            return <NotFound title={'No DAOs found'} />
+        }
 
-        // check if DAO exists
-        const DAOItem = DAOsConfig.find((dao: {id: string, name: string}) =>
-            dao.name.toLowerCase() === DAOId.toLowerCase() && DAOs.includes(inverse(mapDAOs)[DAOId]))
+        // DAO from params
+        const [ DAOId = '' , addressesId] = params.id
+
+        // Check if DAO exists
+        const DAOItem = DAOsConfig.find((daoConfig: DAOType) => {
+            return daoConfig.name.toLowerCase() === DAOId.toLowerCase()
+        })
 
         if(!DAOItem) {
+            return <NotFound />
+        }
+
+        // Check if DAO exists in the roles
+        if(!DAOItem || !DAOs.includes(DAOItem.role)) {
             return <NotFound />
         }
 
