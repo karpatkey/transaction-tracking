@@ -43,8 +43,8 @@ const Page: AppRouterPageRoute = withPageAuthRequired(
                     gap: '20px 20px',
             }}>
             {
-                DAOsMapped.map((DAOItem: DAOType) => {
-                    return <DAO DAO={DAOItem} />
+                DAOsMapped.map((DAOItem: DAOType, index: number) => {
+                    return <DAO DAO={DAOItem} key={index} />
                 })
             }
             </Box>

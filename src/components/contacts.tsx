@@ -135,6 +135,7 @@ export const Contacts = () => {
                                 color: 'primary.main',
                             }}
                             onClick={handleSaveClick(id)}
+                            key={id}
                         />,
                         <GridActionsCellItem
                             icon={<CancelIcon />}
@@ -142,6 +143,7 @@ export const Contacts = () => {
                             className="textPrimary"
                             onClick={handleCancelClick(id)}
                             color="inherit"
+                            key={id}
                         />,
                     ];
                 }
@@ -153,12 +155,14 @@ export const Contacts = () => {
                         className="textPrimary"
                         onClick={handleEditClick(id)}
                         color="inherit"
+                        key={id}
                     />,
                     <GridActionsCellItem
                         icon={<DeleteIcon />}
                         label="Delete"
                         onClick={handleDeleteClick(id)}
                         color="inherit"
+                        key={id}
                     />,
                 ];
             },
